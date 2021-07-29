@@ -21,7 +21,7 @@ namespace BlazorAuthenticationDemo.Client
             builder.Services.AddHttpClient("BlazorAuthenticationDemo.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-            // Supply HttpClient instances that include access tokens when making requests to the server project
+            
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorAuthenticationDemo.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
