@@ -18,9 +18,13 @@ namespace BlazorAuthenticationDemo.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddHttpClient("BlazorAuthenticationDemo.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
-                .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+            builder.Services.AddHttpClient("BlazorAuthenticationDemo.ServerAPI",
+                client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+                //.AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
+            builder.Services.AddTransient(sp =>
+                sp.GetRequiredService<IHttpClientFactory>()
+                .CreateClient("BlazorAuthenticationDemo.ServerAPI"));
             
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorAuthenticationDemo.ServerAPI"));
 
